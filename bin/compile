@@ -240,15 +240,17 @@ if [[ "${PHP_VERSION}" ]]; then
     done
     
     # special treatment for New Relic; we enable it if we detect a license key for it
-#    install_newrelic_ext
+    install_newrelic_ext
 
     # special treatment for Blackfire; we enable it if we detect a server id and a server token for it
-#    install_blackfire_ext
+    install_blackfire_ext
 
-#    if [[ ${#exts[@]} -eq 0 || ! ${exts[*]} =~ "zend-opcache" ]]; then
-#        install_ext "zend-opcache" "automatic"
-#        exts+=("zend-opcache")
-#    fi
+    if [[ ! $PHP_VERSION = "5.4.36" ]]; then
+        if [[ ${#exts[@]} -eq 0 || ! ${exts[*]} =~ "zend-opcache" ]]; then
+           install_ext "zend-opcache" "automatic"
+            exts+=("zend-opcache")
+        fi
+    fi
 fi
 
 status "Installing dependencies..."
