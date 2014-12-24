@@ -243,7 +243,7 @@ if [[ "${PHP_VERSION}" ]]; then
 #    install_newrelic_ext
 
     # special treatment for Blackfire; we enable it if we detect a server id and a server token for it
-    install_blackfire_ext
+#    install_blackfire_ext
 
     if [[ ${#exts[@]} -eq 0 || ! ${exts[*]} =~ "zend-opcache" ]]; then
         install_ext "zend-opcache" "automatic"
