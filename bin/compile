@@ -167,11 +167,7 @@ ln -s $BUILD_DIR/.heroku /app/.heroku
 export PATH=/app/.heroku/php/bin:$PATH
 
 if [[ "${PHP_VERSION}" ]]; then
-    if [[ $PHP_VERSION = "5.4.36" ]]; then
-        PHP_DIST_URL="https://s3-ap-northeast-1.amazonaws.com/heroku-buildpack-mt/php-$PHP_VERSION.tar.gz"
-    else
-        PHP_DIST_URL="$S3_URL/php-$PHP_VERSION.tar.gz"
-    fi
+    PHP_DIST_URL="https://s3-ap-northeast-1.amazonaws.com/heroku-buildpack-mt/php-$PHP_VERSION.tar.gz"
     echo "- PHP $PHP_VERSION" | indent
     curl --silent --location "$PHP_DIST_URL" | tar xz -C $BUILD_DIR/.heroku/php
     PHP_EXT_DIR=$(php-config --extension-dir)
@@ -245,7 +241,7 @@ if [[ "${PHP_VERSION}" ]]; then
     # special treatment for Blackfire; we enable it if we detect a server id and a server token for it
     install_blackfire_ext
 
-    if [[ ! $PHP_VERSION = "5.4.36" ]]; then
+    if [[ ! $PHP_VERSION =~ "^5\.4\.\d+$" ]]; then
         if [[ ${#exts[@]} -eq 0 || ! ${exts[*]} =~ "zend-opcache" ]]; then
            install_ext "zend-opcache" "automatic"
             exts+=("zend-opcache")
