@@ -167,7 +167,8 @@ ln -s $BUILD_DIR/.heroku /app/.heroku
 export PATH=/app/.heroku/php/bin:$PATH
 
 if [[ "${PHP_VERSION}" ]]; then
-    PHP_DIST_URL="https://s3-ap-northeast-1.amazonaws.com/heroku-buildpack-mt/php-$PHP_VERSION.tar.gz"
+    # PHP_DIST_URL="https://s3-ap-northeast-1.amazonaws.com/heroku-buildpack-mt/php-$PHP_VERSION.tar.gz"
+    PHP_DIST_URL="https://storage.googleapis.com/heroku-buildpack-php54/php-$PHP_VERSION.tag.gz"
     echo "- PHP $PHP_VERSION" | indent
     curl --silent --location "$PHP_DIST_URL" | tar xz -C $BUILD_DIR/.heroku/php
     PHP_EXT_DIR=$(php-config --extension-dir)
